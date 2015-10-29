@@ -35,13 +35,13 @@ import java.awt.image.BufferedImage;
 
 public class UserComp extends GameDriver{
 
-	int  n = 5, s=1, dy = 0, speed = 15, dy1=0, dy2=0, dx=speed-n, lastloss=0;
+	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=speed-n, lastloss=0;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
 	Rectangle ball = new Rectangle(465,336,70,7);
-	Rectangle top = new Rectangle(0,44,1000,1);
-	Rectangle bottom = new Rectangle(0,629,1000,1);
+	Rectangle top = new Rectangle(0,44,1000,3);
+	Rectangle bottom = new Rectangle(0,629,1000,3);
 	Rectangle middle = new Rectangle(500,0,1,700);
 	boolean wPressed = false, sPressed = false, downPressed = false, upPressed = false, spacePressed = false;
 	public void draw(Graphics2D win) {
@@ -50,18 +50,21 @@ public class UserComp extends GameDriver{
 		win.fill(bg);
 		win.drawImage(background, null, 0, 44);
 		win.setColor(Color.GREEN);
-		win.fill(jedi);
+	//	win.fill(jedi);
+		win.drawImage(jsword, null, (int)jedi.getX(), (int)jedi.getY()-4);
 		win.setColor(Color.RED);
-		win.fill(sith);
+	//	win.fill(sith);
+		win.drawImage(ssword, null, (int)sith.getX(), (int)sith.getY()-4);
 		win.setColor(Color.RED);
-		win.fill(ball);
+	//	win.fill(ball);
+		win.drawImage(blaster, null, (int)ball.getX(), (int)ball.getY());
 		win.setColor(Color.YELLOW);
 		win.fill(top);
 		win.fill(bottom);
-		win.fill(middle);
+	//	win.fill(middle);
 
 		
-		if(ball.getX()<-80){
+		if(ball.getX()<-80){//91-5=86 
 			ball.move(465,336);
 			dy2=0;
 			dx=0;
@@ -162,10 +165,16 @@ public class UserComp extends GameDriver{
 	
 	
 	BufferedImage background = null;
+	BufferedImage jsword = null;
+	BufferedImage ssword = null;
+	BufferedImage blaster = null;
 
 
 	public UserComp(){
 		background = addImage("background.jpg");
+		jsword = addImage("jedi.png");
+		ssword = addImage("sith.png");
+		blaster = addImage("blaster.png");
 	}
 
 }
