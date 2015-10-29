@@ -35,7 +35,7 @@ import java.awt.image.BufferedImage;
 
 public class UserComp extends GameDriver{
 
-	int  n = 5, dy = 0, speed = 15, dy1=0, dy2=0, dx=speed-n, lastloss=0;
+	int  n = 5, s=1, dy = 0, speed = 15, dy1=0, dy2=0, dx=speed-n, lastloss=0;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
@@ -48,6 +48,7 @@ public class UserComp extends GameDriver{
 		
 		win.setColor(Color.BLACK);
 		win.fill(bg);
+		win.drawImage(background, null, 0, 44);
 		win.setColor(Color.GREEN);
 		win.fill(jedi);
 		win.setColor(Color.RED);
@@ -58,7 +59,7 @@ public class UserComp extends GameDriver{
 		win.fill(top);
 		win.fill(bottom);
 		win.fill(middle);
-		//win.drawImage(background, null, (int)bg.getX(), (int)bg.getY());
+
 		
 		if(ball.getX()<-80){
 			ball.move(465,336);
@@ -101,10 +102,18 @@ public class UserComp extends GameDriver{
 		
 		if((ball.intersects(sith)&&dx>0)||(ball.intersects(jedi)&&dx<0)){
 			dx=-dx;
+			s=s+1;
 			if(dy2%2==0){
 				dy2=(int)(Math.random()*10);
 			}else{
 				dy2=(int)(Math.random()*-10);
+			}
+			if(s%3==0){
+				if(dx<0){
+					dx=dx-1;
+				}else{
+					dx=dx+1;
+				}
 			}
 		}
 		if(ball.getY()>615||ball.getY()<50){
@@ -152,16 +161,11 @@ public class UserComp extends GameDriver{
 	
 	
 	
-	/*BufferedImage bobw = null;
-	BufferedImage boba = null;
-	BufferedImage bobs = null;
-	BufferedImage bobd = null;
+	BufferedImage background = null;
+
 
 	public UserComp(){
-		bobw = addImage("original.jpg");
-		boba = addImage("originala.jpg");
-		bobs = addImage("originals.jpg");
-		bobd = addImage("originald.jpg");
-	}*/
+		background = addImage("background.jpg");
+	}
 
 }
