@@ -35,7 +35,7 @@ import java.awt.image.BufferedImage;
 
 public class UserComp extends GameDriver{
 
-	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=speed-n, lastloss=0, jforce=3, sforce=3;
+	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
@@ -188,6 +188,14 @@ public class UserComp extends GameDriver{
 			dy2=-dy2;
 		}
 		
+		
+		if(dx==0&&ball.getX()==465&&spacePressed){
+			if((int)(Math.random()*10)%2==0){
+				dx=speed-n;
+			}else{
+				dx=-(speed-n);
+			}
+		}
 		jedi.translate(0, dy);
 		sith.translate(0, dy1);
 		ball.translate(dx, dy2);
