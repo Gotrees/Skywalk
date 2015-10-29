@@ -88,7 +88,10 @@ public class UserComp extends GameDriver{
 			win.drawString("Player 1 Wins", 250, 230);
 			win.setFont(new Font("TimesRoman", Font.PLAIN, 50));
 			win.drawString("Hit Space to start " , 300,500 );
-			spacePressed=false;
+			if(spacePressed){
+				sithScore=0;
+				jediScore=0;
+			}
 		}
 		
 		
@@ -99,10 +102,16 @@ public class UserComp extends GameDriver{
 			win.drawString("Empire Wins",250 ,230);
 			win.setFont(new Font("Impact", Font.PLAIN, 50));
 			win.drawString("Hit Space to start " , 300,500 );
-			spacePressed=false;
+			
 			if(spacePressed){
 				sithScore=0;
 				jediScore=0;
+				jforce=3;
+				sforce=3;
+				ball.move(765,336);
+				dy2=0; 
+				dx=0;
+				n=n-1;
 			}
 		}
 		
