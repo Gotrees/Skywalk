@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ import java.awt.image.BufferedImage;
            .  \    \   |   |      /   /__\   \  . |         _/               .
  .     ________>    |  |   | .   /            \   |   |\    \_______    .
       |            /   |   |    /    ______    \  |   | \           |
-      |___________/    |___|   /____/      \____\ |___|  \__________|    .
+      |___________/    |___|   /____/      \____\ |___|  \__________|    . do up to 6 code hs
   .     ____    __  . _____   ____      .  __________   .  _________
        \    \  /  \  /    /  /    \       |          \    /         |      .
         \    \/    \/    /  /      \      |    ___    |  /    ______|  .
@@ -35,6 +36,7 @@ import java.awt.image.BufferedImage;
 
 public class UserComp extends GameDriver{
 
+	int sithScore=0,jediScore=0;
 	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
@@ -74,6 +76,45 @@ public class UserComp extends GameDriver{
 		win.drawImage(rebel, null, 105, 7);
 		win.drawImage(rebel, null, 140, 7);
 
+	/*	if(ball.getX()<jedi.getX()-10){
+			 jediScore=jediScore+1;
+		}
+		if(ball.getX()>sith.getX()){
+			sithScore=sithScore+1;
+		}*/
+		
+		if(jediScore>=10){
+			win.setFont(new Font("TimesRoman", Font.PLAIN, 100));
+			win.drawString("Player 1 Wins", 250, 230);
+			win.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+			win.drawString("Hit Space to start " , 300,500 );
+			spacePressed=false;
+		}
+		
+		
+		
+		
+		if(sithScore>=10){
+			win.setFont(new Font("Impact", Font.PLAIN, 100));
+			win.drawString("Empire Wins",250 ,230);
+			win.setFont(new Font("Impact", Font.PLAIN, 50));
+			win.drawString("Hit Space to start " , 300,500 );
+			spacePressed=false;
+			if(spacePressed){
+				sithScore=0;
+				jediScore=0;
+			}
+		}
+		
+		
+		
+		
+		win.setFont( new Font("Impact",Font.PLAIN,30));
+//		win.drawString("Player 1 Score:", 10, 20);
+		win.drawString(String.valueOf(sithScore), 510, 35);
+//		win.drawString("Player 2 Score:", 870, 20);
+		win.drawString(String.valueOf(jediScore), 475, 35);
+		
 		if(ball.getX()<-80){
 			ball.move(165,336);
 			dy2=0;
@@ -81,14 +122,16 @@ public class UserComp extends GameDriver{
 			n=n-1;
 			lastloss=0;
 			s=1;
+			sithScore=sithScore+10;
 			}
 		if(ball.getX()>1015){
 			ball.move(765,336);
-			dy2=0;
+			dy2=0; 
 			dx=0;
 			n=n-1;
 			lastloss=1;
 			s=1;
+			jediScore=jediScore+1;
 		}
 		
 		if((ball.getX()==765&&dx==0)){
