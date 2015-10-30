@@ -37,7 +37,7 @@ import java.awt.image.BufferedImage;
 public class UserComp extends GameDriver{
 
 	int sithScore=0,jediScore=0;
-	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3, t=0;
+	int winnum=8, n = 5, s=1, dy = 0, speed = 30, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3, t=0, u=0, c=0;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
@@ -53,20 +53,119 @@ public class UserComp extends GameDriver{
 	Rectangle rebel1 = new Rectangle(70,7,30,30);
 	Rectangle rebel2 = new Rectangle(105,7,30,30);
 	Rectangle rebel3 = new Rectangle(140,7,30,30);
+	Rectangle dsd = new Rectangle(220,0,1,1);
+	Rectangle dsl = new Rectangle(436,236,1,1);
 	String pressspace = new String("Press <space> to start.");
-	String empirevict1 = new String("Victory to the");
-	String empirevict2 = new String("GALACTIC EMPIRE");
-	String pressspace1 = new String("Press <space> to play again.");
+	String vict1 = new String("Victory to the");
+	String vict2emp = new String("GALACTIC EMPIRE");
+	String vict2reb = new String("REBEL ALLIANCE");
+	String vict3 = new String("Press <space> to play again.");
 	Color longago = new Color(30,241,224);
-	boolean wPressed = false, sPressed = false, downPressed = false, upPressed = false, spacePressed = false, dPressed = false, leftPressed = false;
+	boolean bmap = false, ready = false, wPressed = false, sPressed = false, downPressed = false, upPressed = false, spacePressed = false, dPressed = false, leftPressed = false;
 	public void draw(Graphics2D win) {
 		
 		win.setColor(Color.BLACK);
 		win.fill(bg);
 		win.drawImage(background, null, 0, 44);
+		
+		
+		
+		
+///////////DRAW SWORDS, BLASTER
+		
 		win.drawImage(jsword, null, (int)jedi.getX(), (int)jedi.getY()-4);
 		win.drawImage(ssword, null, (int)sith.getX(), (int)sith.getY()-4);
-		win.drawImage(blaster, null, (int)ball.getX(), (int)ball.getY());
+		if(jediScore<winnum&&sithScore<winnum){
+			win.drawImage(blaster, null, (int)ball.getX(), (int)ball.getY());
+		}
+
+
+
+		
+//////////////JEDI WIN SCREEN
+		if(jediScore>=winnum){
+			wPressed=false;
+			sPressed=false;
+			dPressed=false;
+			upPressed=false;
+			downPressed=false;
+			leftPressed=false;
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 85));
+			win.setPaint(Color.YELLOW);
+			win.drawString(vict1, 260, 710-u);
+			win.setFont(new Font("Impact", Font.PLAIN, 100));
+			win.drawString(vict2reb, 195, 850-u);
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
+			win.setPaint(longago);
+			if(u<500){
+				win.drawString(vict3, 190,1000-u);
+			}else{
+				win.drawString(vict3, 190, 500);
+			}
+			
+			u=u+2;
+			
+			
+			if(spacePressed){
+				sithScore=0;
+				jediScore=0;
+				jforce=3;
+				sforce=3;
+				ball.move(765,336);
+				dy2=0; 
+				dx=0;
+				n=5;
+			}
+		}
+		
+		if(jediScore==0){
+			u=0;
+		}
+		
+		
+/////////////SITH WIN SCREEN
+		if(sithScore>=winnum){
+			wPressed=false;
+			sPressed=false;
+			dPressed=false;
+			upPressed=false;
+			downPressed=false;
+			leftPressed=false;
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 85));
+			win.setPaint(Color.YELLOW);
+			win.drawString(vict1, 250, 710-t);
+			win.setFont(new Font("Impact", Font.PLAIN, 100));
+			win.drawString(vict2emp, 150, 850-t);
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
+			win.setPaint(longago);
+			if(t<500){
+				win.drawString(vict3, 200,1000-t);
+			}else{
+				win.drawString(vict3, 200, 500);
+			}
+			
+			
+			t=t+2;
+			
+			
+			if(spacePressed){
+				sithScore=0;
+				jediScore=0;
+				jforce=3;
+				sforce=3;
+				ball.move(165,336);
+				dy2=0; 
+				dx=0;
+				n=5;
+			}
+		}
+		
+		if(sithScore==0){
+			t=0;
+		}
+		
+/////////////SCOREBOARD, BORDER
+		win.setColor(Color.BLACK);
 		win.fill(bottomblack);
 		win.fill(topblack);
 		win.setColor(Color.YELLOW);
@@ -80,74 +179,21 @@ public class UserComp extends GameDriver{
 		win.drawImage(rebel, null, 70, 7);
 		win.drawImage(rebel, null, 105, 7);
 		win.drawImage(rebel, null, 140, 7);
-
-	/*	if(ball.getX()<jedi.getX()-10){
-			 jediScore=jediScore+1;
-		}
-		if(ball.getX()>sith.getX()){
-			sithScore=sithScore+1;
-		}*/
+		win.setFont( new Font("Franklin Gothic Medium",Font.PLAIN,15));
+		win.setPaint(Color.WHITE);
+		win.drawString("Rebel Alliance", 180, 33);
+		win.setPaint(Color.WHITE);
+		win.drawString("Galactic Empire", 720, 33);
 		
 		
-//////////////JEDI WIN SCREEN
-		if(jediScore>=10){
-			win.setFont(new Font("TimesRoman", Font.PLAIN, 100));
-			win.drawString("Player 1 Wins", 250, 230);
-			win.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-			win.drawString("Hit Space to start ",300,500 );
-			if(spacePressed){
-				sithScore=0;
-				jediScore=0;
-				jforce=3;
-				sforce=3;
-				ball.move(765,336);
-				dy2=0; 
-				dx=0;
-				n=5;
-			}
-		}
-		
-		
-		
-/////////////SITH WIN SCREEN
-		if(sithScore>=10){
-			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 85));
-			win.setPaint(Color.YELLOW);
-			win.drawString(empirevict1, 250, 710-t);
-			win.setFont(new Font("Impact", Font.PLAIN, 100));
-			win.drawString(empirevict2, 150, 850-t);
-			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
-			win.setPaint(longago);
-			if(t<500){
-				win.drawString(pressspace1, 200,1000-t);
-			}else{
-				win.drawString(pressspace1, 200, 500);
-			}
-			
-			t=t+1;
-			
-			
-			if(spacePressed){
-				sithScore=0;
-				jediScore=0;
-				jforce=3;
-				sforce=3;
-				ball.move(765,336);
-				dy2=0; 
-				dx=0;
-				n=5;
-			}
-		}
-		
-		if(sithScore==0){
-			t=0;
-		}
-		
-/////////////SCOREBOARD
 		win.setFont( new Font("Impact",Font.PLAIN,30));
 		win.setPaint(Color.WHITE);
-		win.drawString(String.valueOf(sithScore), 510, 35);
-		win.drawString(String.valueOf(jediScore), 475, 35);
+		win.drawString(String.valueOf(sithScore), 512, 35);
+		if(jediScore<10){
+			win.drawString(String.valueOf(jediScore), 473, 35);
+		}else{
+			win.drawString(String.valueOf(jediScore), 462, 35);
+		}
 		
 		
 /////////////UPON SITH SCORE (AGAINST JEDI)
@@ -158,7 +204,7 @@ public class UserComp extends GameDriver{
 			n=n-1;
 			lastloss=0;
 			s=1;
-			sithScore=sithScore+10;
+			sithScore=sithScore+1;
 			}
 		
 		
@@ -170,7 +216,7 @@ public class UserComp extends GameDriver{
 			n=n-1;
 			lastloss=1;
 			s=1;
-			jediScore=jediScore+10;
+			jediScore=jediScore+1;
 		}
 		
 		
@@ -278,14 +324,56 @@ public class UserComp extends GameDriver{
 			dy2=-dy2;            
 		}
 		
+///////////INSTRUCTIONS
+	
+		if(dx==0&&ball.getX()==465&&c<100&&c!=-1){   //PAGE 1 (TIMED)
+			
+			c=c+1;																//basically, keep adding 1 to
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 30));	//c until c=100, then move on
+			win.setPaint(longago);
+			win.drawString("A long time ago, in a galaxy far,", 300,200);
+			win.drawString("far away....", 300,232);	
+			
+		}	
+		
+		if(spacePressed&&c>=100){
+			c=-1;
+		}
+		if(dx==0&&ball.getX()==465&&c>=100){         //PAGE 2 (PROCEED ON SPACEBAR)
+			win.drawImage(title, null, 50, 82);
+			win.drawImage(map, null, 300, 375);
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 40));
+			win.setPaint(Color.WHITE);
+			win.drawString(pressspace, 300, 500);
+			win.setFont(new Font("Ariel", Font.PLAIN, 25));
+			win.setPaint(Color.WHITE);
+			if(winnum>=10){													//this if/else just formats text
+				win.drawString("First to " + winnum + " wins.", 407, 550);	//if winnum is 2-digits, the string
+			}else{															//moves over a bit to the right
+				win.drawString("First to " + winnum + " wins.", 411, 550);	//to maintain position in center
+			}
+			win.setFont(new Font("Ariel", Font.PLAIN, 10));
+			win.setPaint(Color.LIGHT_GRAY);
+			win.drawString("A game by", 465, 600);
+			win.setFont(new Font("Ariel", Font.PLAIN, 12));
+			win.drawString("Dylan Fabris   Brian Chiang", 415, 615);
+		}
+		
+		
+		
+		
 ///////////START GAME UPON SPACEPRESS
-		if(dx==0&&ball.getX()==465&&spacePressed){
+		if(dx==0&&ball.getX()==465&&spacePressed&&c==-1){
 			if((int)(Math.random()*10)%2==0){
 				dx=speed-n;                         //RANDOMLY CHOOSE FIRST SERVE
 			}else{
 				dx=-(speed-n);
 			}
 		}
+		
+
+		
+		
 		
 //////////BASIC DEFAULT TRANSLATIONS
 		jedi.translate(0, dy);
@@ -340,14 +428,16 @@ public class UserComp extends GameDriver{
 	
 	
 	
-	BufferedImage background = null;
-	BufferedImage jsword = null; 
-	BufferedImage ssword = null;
-	BufferedImage blaster = null;
-	BufferedImage lightning = null;
-	BufferedImage force = null;
-	BufferedImage imperial = null;
-	BufferedImage rebel = null;
+	BufferedImage background = null;   	//stars bg
+	BufferedImage jsword = null; 		//left paddle
+	BufferedImage ssword = null;		//right paddle
+	BufferedImage blaster = null;		//ball
+	BufferedImage lightning = null;		//right powerup effect
+	BufferedImage force = null;			//left powerup effect
+	BufferedImage imperial = null;		//right powerup icon
+	BufferedImage rebel = null;			//left powerup icon
+	BufferedImage map = null;			//keymap (instructions)
+	BufferedImage title = null;			//skywalker title
 	
 	public UserComp(){
 		background = addImage("background.jpg");
@@ -358,6 +448,9 @@ public class UserComp extends GameDriver{
 		force = addImage("force.png");
 		imperial = addImage("imperial.png");
 		rebel = addImage("rebel.png");
+		map = addImage("map.png");
+		title = addImage("title.png");
+		
 	}
 
 }
