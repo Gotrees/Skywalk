@@ -37,7 +37,7 @@ import java.awt.image.BufferedImage;
 public class UserComp extends GameDriver{
 
 	int sithScore=0,jediScore=0;
-	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3;
+	int  n = 5, s=1, dy = 0, speed = 20, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3, t=0;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
@@ -53,6 +53,11 @@ public class UserComp extends GameDriver{
 	Rectangle rebel1 = new Rectangle(70,7,30,30);
 	Rectangle rebel2 = new Rectangle(105,7,30,30);
 	Rectangle rebel3 = new Rectangle(140,7,30,30);
+	String pressspace = new String("Press <space> to start.");
+	String empirevict1 = new String("Victory to the");
+	String empirevict2 = new String("GALACTIC EMPIRE");
+	String pressspace1 = new String("Press <space> to play again.");
+	Color longago = new Color(30,241,224);
 	boolean wPressed = false, sPressed = false, downPressed = false, upPressed = false, spacePressed = false, dPressed = false, leftPressed = false;
 	public void draw(Graphics2D win) {
 		
@@ -89,10 +94,16 @@ public class UserComp extends GameDriver{
 			win.setFont(new Font("TimesRoman", Font.PLAIN, 100));
 			win.drawString("Player 1 Wins", 250, 230);
 			win.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-			win.drawString("Hit Space to start " , 300,500 );
+			win.drawString("Hit Space to start ",300,500 );
 			if(spacePressed){
 				sithScore=0;
 				jediScore=0;
+				jforce=3;
+				sforce=3;
+				ball.move(765,336);
+				dy2=0; 
+				dx=0;
+				n=5;
 			}
 		}
 		
@@ -100,10 +111,21 @@ public class UserComp extends GameDriver{
 		
 /////////////SITH WIN SCREEN
 		if(sithScore>=10){
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 85));
+			win.setPaint(Color.YELLOW);
+			win.drawString(empirevict1, 250, 710-t);
 			win.setFont(new Font("Impact", Font.PLAIN, 100));
-			win.drawString("Empire Wins",250 ,230);
-			win.setFont(new Font("Impact", Font.PLAIN, 50));
-			win.drawString("Hit Space to start " , 300,500 );
+			win.drawString(empirevict2, 150, 850-t);
+			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
+			win.setPaint(longago);
+			if(t<500){
+				win.drawString(pressspace1, 200,1000-t);
+			}else{
+				win.drawString(pressspace1, 200, 500);
+			}
+			
+			t=t+1;
+			
 			
 			if(spacePressed){
 				sithScore=0;
@@ -113,14 +135,17 @@ public class UserComp extends GameDriver{
 				ball.move(765,336);
 				dy2=0; 
 				dx=0;
-				n=n-1;
+				n=5;
 			}
 		}
 		
-		
+		if(sithScore==0){
+			t=0;
+		}
 		
 /////////////SCOREBOARD
 		win.setFont( new Font("Impact",Font.PLAIN,30));
+		win.setPaint(Color.WHITE);
 		win.drawString(String.valueOf(sithScore), 510, 35);
 		win.drawString(String.valueOf(jediScore), 475, 35);
 		
@@ -145,7 +170,7 @@ public class UserComp extends GameDriver{
 			n=n-1;
 			lastloss=1;
 			s=1;
-			jediScore=jediScore+1;
+			jediScore=jediScore+10;
 		}
 		
 		
