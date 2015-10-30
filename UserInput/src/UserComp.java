@@ -83,6 +83,8 @@ public class UserComp extends GameDriver{
 			sithScore=sithScore+1;
 		}*/
 		
+		
+//////////////JEDI WIN SCREEN
 		if(jediScore>=10){
 			win.setFont(new Font("TimesRoman", Font.PLAIN, 100));
 			win.drawString("Player 1 Wins", 250, 230);
@@ -96,7 +98,7 @@ public class UserComp extends GameDriver{
 		
 		
 		
-		
+/////////////SITH WIN SCREEN
 		if(sithScore>=10){
 			win.setFont(new Font("Impact", Font.PLAIN, 100));
 			win.drawString("Empire Wins",250 ,230);
@@ -117,13 +119,13 @@ public class UserComp extends GameDriver{
 		
 		
 		
-		
+/////////////SCOREBOARD
 		win.setFont( new Font("Impact",Font.PLAIN,30));
-//		win.drawString("Player 1 Score:", 10, 20);
 		win.drawString(String.valueOf(sithScore), 510, 35);
-//		win.drawString("Player 2 Score:", 870, 20);
 		win.drawString(String.valueOf(jediScore), 475, 35);
 		
+		
+/////////////UPON SITH SCORE (AGAINST JEDI)
 		if(ball.getX()<-80){
 			ball.move(165,336);
 			dy2=0;
@@ -133,6 +135,9 @@ public class UserComp extends GameDriver{
 			s=1;
 			sithScore=sithScore+10;
 			}
+		
+		
+/////////////UPON JEDI SCORE(AGAINST SITH)
 		if(ball.getX()>1015){
 			ball.move(765,336);
 			dy2=0; 
@@ -143,6 +148,8 @@ public class UserComp extends GameDriver{
 			jediScore=jediScore+1;
 		}
 		
+		
+//////////////SITH SCORE, RESET BALL
 		if((ball.getX()==765&&dx==0)){
 			ball.move(765,(int)sith.getCenterY());
 			if(leftPressed){
@@ -150,7 +157,7 @@ public class UserComp extends GameDriver{
 			}
 		}
 		
-		
+/////////////JEDI SCORE, RESET BALL
 		if((ball.getX()==165&&dx==0)){
 			ball.move(165,(int)jedi.getCenterY());
 			if(dPressed){
@@ -159,7 +166,7 @@ public class UserComp extends GameDriver{
 		}
 		
 		
-		///POWER UPS
+//////////////JEDI POWER UPS
 		if(jforce>0&&dx<0&&dPressed){
 			dx=-dx;
 			jforce=jforce-1;
@@ -179,7 +186,7 @@ public class UserComp extends GameDriver{
 			win.fill(rebel1);
 		}
 		
-		
+//////////////SITH POWER UPS
 		if(sforce>0&&dx>0&&leftPressed){
 			dx=-dx;
 			sforce=sforce-1;
@@ -200,6 +207,7 @@ public class UserComp extends GameDriver{
 		}
 		
 		
+///////////JEDI MOVE SABER UP/DOWN
 		if(wPressed&&jedi.getY()>=50){
 			dy = -speed;
 		} else if (sPressed&&jedi.getY()<550) {
@@ -208,6 +216,7 @@ public class UserComp extends GameDriver{
 			dy = 0;
 		}
 		
+///////////SITH MOVE SABER UP/DOWN
 		if(upPressed&&sith.getY()>50){
 			dy1 = -speed;
 		} else if (downPressed&&sith.getY()<550) {
@@ -216,19 +225,21 @@ public class UserComp extends GameDriver{
 			dy1 = 0;
 		}
 		
+		
+///////////BALL BOUNCE OFF SABER
 		if((ball.intersects(sith)&&dx>0)||(ball.intersects(jedi)&&dx<0)){
 			dx=-dx;
 			s=s+1;
 			if(ball.intersects(sith)&&dy1>0||ball.intersects(jedi)&&dy>0){
-				dy2=(int)(Math.random()*10);
+				dy2=(int)(Math.random()*10);                 //IF PADDLE MOVING DOWN, BALL BOUNCES DOWN
 			}else if(ball.intersects(sith)&&dy1<0||ball.intersects(jedi)&&dy<0){
-				dy2=(int)(Math.random()*-10);
+				dy2=(int)(Math.random()*-10);     //IF PADDLE MOVING UP, BALL BOUNCES UP
 			}else if(dy2%2==0){
-				dy2=(int)(Math.random()*10);
-			}else{
+				dy2=(int)(Math.random()*10);   //IF PADDLE IS STILL, RANDOMLY CHOOSE BOUNCE UP/DOWN
+			}else{  									   //(BASED ON ODD/EVEN Y-VELOCITY OF BALL)
 				dy2=(int)(Math.random()*-10);
 			}
-			if(s%3==0){
+			if(s%3==0){        //INCREASE X-VELOCITY BY ONE, EVERY THREE HITS
 				if(dx<0){
 					dx=dx-1;
 				}else{
@@ -236,18 +247,22 @@ public class UserComp extends GameDriver{
 				}
 			}
 		}
+		
+////////////BALL BOUNCE OFF CEILING/FLOOR
 		if((ball.getY()>615&&dy2>0)||(ball.getY()<50)&&dy2<0){
-			dy2=-dy2;
+			dy2=-dy2;            
 		}
 		
-		
+///////////START GAME UPON SPACEPRESS
 		if(dx==0&&ball.getX()==465&&spacePressed){
 			if((int)(Math.random()*10)%2==0){
-				dx=speed-n;
+				dx=speed-n;                         //RANDOMLY CHOOSE FIRST SERVE
 			}else{
 				dx=-(speed-n);
 			}
 		}
+		
+//////////BASIC DEFAULT TRANSLATIONS
 		jedi.translate(0, dy);
 		sith.translate(0, dy1);
 		ball.translate(dx, dy2);
