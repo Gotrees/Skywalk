@@ -94,13 +94,13 @@ public class UserComp extends GameDriver{
 			win.setPaint(Color.YELLOW);
 			win.drawString(vict1, 260, 710-u);
 			win.setFont(new Font("Impact", Font.PLAIN, 100));
-			win.drawString(vict2reb, 195, 850-u);
+			win.drawString(vict2reb, 195, 830-u);
 			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
 			win.setPaint(longago);
 			if(u<500){
-				win.drawString(vict3, 190,1000-u);
+				win.drawString(vict3, 190,980-u);
 			}else{
-				win.drawString(vict3, 190, 500);
+				win.drawString(vict3, 190, 480);
 			}
 			
 			u=u+2;
@@ -135,13 +135,13 @@ public class UserComp extends GameDriver{
 			win.setPaint(Color.YELLOW);
 			win.drawString(vict1, 250, 710-t);
 			win.setFont(new Font("Impact", Font.PLAIN, 100));
-			win.drawString(vict2emp, 150, 850-t);
+			win.drawString(vict2emp, 150, 830-t);
 			win.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 50));
 			win.setPaint(longago);
 			if(t<500){
-				win.drawString(vict3, 200,1000-t);
+				win.drawString(vict3, 190,980-t);
 			}else{
-				win.drawString(vict3, 200, 500);
+				win.drawString(vict3, 190, 480);
 			}
 			
 			
