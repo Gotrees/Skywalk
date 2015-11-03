@@ -62,6 +62,7 @@ public class UserComp extends GameDriver{
 	String vict3 = new String("Press <space> to play again.");
 	Color longago = new Color(30,241,224);
 	boolean bmap = false, ready = false, wPressed = false, sPressed = false, downPressed = false, upPressed = false, spacePressed = false, dPressed = false, leftPressed = false;
+
 	public void draw(Graphics2D win) {
 		
 		win.setColor(Color.BLACK);
@@ -357,6 +358,7 @@ public class UserComp extends GameDriver{
 			win.drawString("A game by", 465, 600);
 			win.setFont(new Font("Ariel", Font.PLAIN, 12));
 			win.drawString("Dylan Fabris   Brian Chiang", 415, 615);
+	
 		}
 		
 		
@@ -381,6 +383,7 @@ public class UserComp extends GameDriver{
 		ball.translate(dx, dy2);
 
 	}
+
 	
 	public void keyPressed(KeyEvent e){
 		
