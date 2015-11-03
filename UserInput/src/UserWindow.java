@@ -27,6 +27,30 @@ public class UserWindow {
 			clip.open(ais);
 			clip.start();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			
+			
+			//IF NEED TO SWITCH BACK TO LOW BITRATE:
+			/*URL path = ClassLoader.getSystemResource("battle.wav");
+			Clip clip = AudioSystem.getClip();
+			AudioInputStream ais = AudioSystem.getAudioInputStream(path);
 		
+			URL R2path = ClassLoader.getSystemResource("Processing R2D2.wav");
+			Clip R2 = AudioSystem.getClip();
+			AudioInputStream R2ais = AudioSystem.getAudioInputStream(R2path);
+			clip.open(ais);
+			clip.start();
+			j1.setVisible(true);
+			/*while((clip.getMicrosecondPosition()/100000)<=165){
+				if((clip.getMicrosecondPosition()/100000)>=165){
+					clip.close();
+					R2.open(R2ais);
+					R2.start();
+					while(R2.isActive()){
+						if((R2.getFrameLength()==R2.getFramePosition())){
+							R2.close();
+						}
+					}
+				}
+			}*/		
 	}
 }
