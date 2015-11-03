@@ -37,7 +37,7 @@ import java.awt.image.BufferedImage;
 public class UserComp extends GameDriver{
 
 	int sithScore=0,jediScore=0;
-	int winnum=8, n = 5, s=1, dy = 0, speed = 30, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3, t=0, u=0, c=0;
+	int round = 1, winnum=8, n = 5, s=1, dy = 0, speed = 30, dy1=0, dy2=0, dx=0, lastloss=0, jforce=3, sforce=3, t=0, u=0, c=0;
 	Rectangle jedi = new Rectangle(50,300,5,75);
 	Rectangle sith = new Rectangle(930,300,5,75);
 	Rectangle bg = new Rectangle(0,0,1000,700);
@@ -180,12 +180,12 @@ public class UserComp extends GameDriver{
 		win.drawImage(rebel, null, 70, 7);
 		win.drawImage(rebel, null, 105, 7);
 		win.drawImage(rebel, null, 140, 7);
-		win.setFont( new Font("Franklin Gothic Medium",Font.PLAIN,15));
+		win.setFont( new Font("Franklin Gothic Medium",Font.PLAIN,12));
 		win.setPaint(Color.WHITE);
 		win.drawString("Rebel Alliance", 180, 33);
 		win.setPaint(Color.WHITE);
 		win.drawString("Galactic Empire", 720, 33);
-		
+		win.drawString("Round " + round, 469, 652);
 		
 		win.setFont( new Font("Impact",Font.PLAIN,30));
 		win.setPaint(Color.WHITE);
@@ -206,6 +206,7 @@ public class UserComp extends GameDriver{
 			lastloss=0;
 			s=1;
 			sithScore=sithScore+1;
+			round+=1;
 			}
 		
 		
@@ -218,6 +219,7 @@ public class UserComp extends GameDriver{
 			lastloss=1;
 			s=1;
 			jediScore=jediScore+1;
+			round+=1;
 		}
 		
 		
